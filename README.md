@@ -1,3 +1,12 @@
+## Tampilan Website
+
+### Persona Finder
+![Persona Finder](personafinder.png)
+
+### Profile (Linktree)
+![Profile](profile.png)
+
+
 ## Deskripsi Website
 Website ini merupakan aplikasi berbasis web yang dibangun menggunakan HTML, CSS, dan JavaScript, serta dijalankan menggunakan Node.js (Express). Website ini menggabungkan dua fitur utama:
 
