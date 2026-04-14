@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Blue Persona Finder</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="container">
+            <section class="glass-card finder">
+                <h2 class="elegant-title">
+    <i class="fas fa-user-astronaut"></i> Persona Finder</h2>
+                <p class="subtitle"> Isi data untuk membuka profil profesional Anda.</p>
+                
+                <form id="personaForm">
+                    <div class="input-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Tulis namamu di sini..." required>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Pilih Hobi Utama</label>
+                        <select id="hobi">
+                            <option value="" disabled selected>Pilih hobi</option>
+                            <option value="coding">Coding & Tech</option>
+                            <option value="musik">Bermain Musik</option>
+                            <option value="game">Gaming</option>
+                            <option value="olahraga">Olahraga</option>
+                            <option value="travelling">Travelling</option>
+                            <option value="sepeda">Bersepeda</option>
+                            <option value="renang">Berenang</option>
+                            <option value="masak">Memasak</option>
+                            <option value="fotografi">Fotografi</option>
+                            <option value="membaca">Membaca</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Angka Keberuntungan (1-10)</label>
+                        <div class="dual-input">
+                            <input type="range" id="angkaSlider" min="1" max="10" value="5" oninput="document.getElementById('angka').value = this.value">
+                            <input type="number" id="angka" min="1" max="10" value="5" oninput="document.getElementById('angkaSlider').value = this.value">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Analyze Now <i class="fas fa-sparkles"></i>
+                    </button>
+                    <button type="button" id="resetBtn" class="btn-submit" style="background:#ccc; color:#333; margin-top:10px;">
+                        Reset <i class="fas fa-rotate-left"></i>
+                    </button>
+                </form>
+
+                <div id="hasil" class="result-box hidden"></div>
+            </section>
+
+            <section class="glass-card profile-card hidden" id="profileCard">
+                <div class="profile-header">
+                    <div class="avatar-ring">
+                        <img src="haijibromo.jpeg" alt="Profile" class="avatar" id="avatarImg">
+                    </div>
+                    <h2 id="namaProfile" class="elegant-title">Digital Identity</h2>
+                    <p class="role-tag">Informatics Engineering Student</p>
+                </div>
+
+                <div class="link-tree">
+                <a href="https://github.com/haiji27" class="link-item">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+
+                <a href="https://www.linkedin.com/" class="link-item">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+
+                <a href="https://www.instagram.com/withjiji_?igsh=bXo5b3U5bjB6Mzhn&utm_source=qr" class="link-item">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+
+                <a href="mailto:thaijijanuarli@gmail.com" class="link-item">
+                    <i class="fas fa-envelope"></i> Email
+                </a>
+                </div>
+
+            </section>
+        </div>
+    </div>
+
+    <script>
+    document.getElementById("personaForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        let nama = document.getElementById("nama").value;
+        let hobi = document.getElementById("hobi").value;
+        let angka = parseInt(document.getElementById("angka").value);
+
+        let base = "";
+        let persona = "";
+
+        if (hobi === "coding") base = "Tech";
+        else if (hobi === "musik") base = "Creative";
+        else if (hobi === "game") base = "Gaming";
+        else if (hobi === "olahraga") base = "Athlete";
+        else if (hobi === "travelling") base = "Explorer";
+        else if (hobi === "sepeda") base = "Rider";
+        else if (hobi === "renang") base = "Navigator";
+        else if (hobi === "masak") base = "Chef";
+        else if (hobi === "fotografi") base = "Visual";
+        else base = "Adventurer";
+
+        switch (angka) {
+        case 10: persona = `<i class="fas fa-crown"></i> The Godlike ${base}`; break;
+        case 9: persona = `<i class="fas fa-star"></i> The Legendary ${base}`; break;
+        case 8: persona = `<i class="fas fa-rocket"></i> The Elite ${base}`; break;
+        case 7: persona = `<i class="fas fa-fire"></i> The Pro ${base}`; break;
+        case 6: persona = `<i class="fas fa-bolt"></i> The Skilled ${base}`; break;
+        case 5: persona = `<i class="fas fa-bullseye"></i> The Rising ${base}`; break;
+        case 4: persona = `<i class="fas fa-seedling"></i> The Learner ${base}`; break;
+        case 3: persona = `<i class="fas fa-compass"></i> The Explorer ${base}`; break;
+        case 2: persona = `<i class="fas fa-face-confused"></i> The Confused ${base}`; break;
+        case 1: persona = `<i class="fas fa-baby"></i> The Newbie ${base}`; break;
+    default: persona = `<i class="fas fa-question"></i> Unknown Persona`;
+    }
+
+    localStorage.setItem("nama", nama);
+    localStorage.setItem("persona", persona);
+
+    let hasil = document.getElementById("hasil");
+    hasil.classList.remove("hidden");
+    hasil.innerHTML = `
+        <h3>Halo, ${nama}!</h3>
+        <p>Persona digitalmu adalah:</p>
+        <h2 class="persona-text">${persona}</h2>
+    `;
+
+        let profile = document.getElementById("profileCard");
+        profile.classList.remove("hidden");
+        profile.classList.add("reveal-anim");
+
+        document.getElementById("namaProfile").innerText = nama;
+
+    });
+
+    window.addEventListener("load", function() {
+    let nama = localStorage.getItem("nama");
+    let persona = localStorage.getItem("persona");
+
+    if (nama && persona) {
+        document.getElementById("hasil").classList.remove("hidden");
+        document.getElementById("hasil").innerHTML = `
+            <h3>Halo, ${nama}!</h3>
+            <p>Persona digitalmu adalah:</p>
+            <h2 class="persona-text">${persona}</h2>
+        `;
+
+        document.getElementById("profileCard").classList.remove("hidden");
+        document.getElementById("namaProfile").innerText = nama;
+    }
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", function() {
+
+    localStorage.clear();
+
+    document.getElementById("personaForm").reset();
+
+    document.getElementById("hasil").classList.add("hidden");
+    document.getElementById("profileCard").classList.add("hidden");
+});
+
+    </script>
+
+</body>
+</html>
